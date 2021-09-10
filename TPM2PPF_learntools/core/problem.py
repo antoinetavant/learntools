@@ -2,9 +2,9 @@ from abc import ABC, abstractmethod
 from typing import List
 import functools
 
-from learntools.core.richtext import *
-from learntools.core.exceptions import NotAttempted, Uncheckable, UserlandExceptionIncorrect
-from learntools.core import utils, asserts, constants
+from TPM2PPF_learntools.core.richtext import *
+from TPM2PPF_learntools.core.exceptions import NotAttempted, Uncheckable, UserlandExceptionIncorrect
+from TPM2PPF_learntools.core import utils, asserts, constants
 
 # I'm sure there's a more elegant way to do this.
 # Some kind of decorator on top of property?

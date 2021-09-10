@@ -1,4 +1,4 @@
-from learntools.core.multiproblem import MultipartProblem
+from TPM2PPF_learntools.core.multiproblem import MultipartProblem
 
 def backtickify(s):
     return '`{}`'.format(s)
@@ -9,8 +9,8 @@ quantum_of_bonus = 1/37
 
 def instantiate_probview(prob_cls, value_per_problem):
     # TODO: Bleh, circular import...
-    from learntools.core import problem_view as pv
-    from learntools.core.globals_binder import binder
+    from TPM2PPF_learntools.core import problem_view as pv
+    from TPM2PPF_learntools.core.globals_binder import binder
     # NB: May eventually have some subclasses for this?
     viewer_cls = pv.ProblemView
     prob = prob_cls()
@@ -77,7 +77,7 @@ def bind_exercises(g, exercises, start=1, var_format='q{n}'):
         yield varname
     # Bad sep of concerns, but anyways, have exercise modules also export quad alias
     # variable as alias for special Placeholder value (if it exists in their namespace
-    # i.e. if they imported * from learntools.core)
+    # i.e. if they imported * from TPM2PPF_learntools.core)
     if '____' in g:
         yield '____'
 

@@ -2,7 +2,7 @@ import enum
 from IPython.display import display, Javascript
 import json
 
-import learntools
+import TPM2PPF_learntools
 
 # If set to True, then echo logged events as output.
 DEBUG = False
@@ -25,7 +25,7 @@ class QuestionType(enum.Enum):
     THOUGHTEXPERIMENT = 4
 
 _EVENT_DEFAULTS = dict(
-        learnToolsVersion = str(learntools.__version__),
+        TPM2PPF_learntoolsVersion = str(TPM2PPF_learntools.__version__),
         valueTowardsCompletion = 0.0,
         failureMessage = '',
         exceptionClass = '',

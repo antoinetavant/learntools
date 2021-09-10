@@ -4,10 +4,10 @@ from collections import Counter
 
 from IPython.display import display
 
-from learntools.core.richtext import *
-from learntools.core.exceptions import *
-from learntools.core.problem import *
-from learntools.core import colors, tracking
+from TPM2PPF_learntools.core.richtext import *
+from TPM2PPF_learntools.core.exceptions import *
+from TPM2PPF_learntools.core.problem import *
+from TPM2PPF_learntools.core import colors, tracking
 
 def displayer(fn):
     @functools.wraps(fn)

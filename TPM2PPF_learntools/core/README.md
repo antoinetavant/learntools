@@ -1,4 +1,4 @@
-The easiest way to get started implementing exercises using the `learntools.core` API is probably to look at some examples and emulate them. There are a number of exercises of various types implemented in `learntools.python` - you can see them in action in the "testing" notebooks in `learntools/python/nbs/`. But below is a bit of a more formal introduction.
+The easiest way to get started implementing exercises using the `TPM2PPF_learntools.core` API is probably to look at some examples and emulate them. There are a number of exercises of various types implemented in `TPM2PPF_learntools.python` - you can see them in action in the "testing" notebooks in `TPM2PPF_learntools/python/nbs/`. But below is a bit of a more formal introduction.
 
 # Implementing an exercise
 
@@ -6,7 +6,7 @@ I'll be using the term "exercise" to refer to a hands-on interactive notebook co
 
 To implement an exercise, you'll need to do the following:
 
-1. Create a python module for your exercise. It should contain definitions for one or more Problem subclasses, and end with a call to `learntools.core.bind_exercises`.
+1. Create a python module for your exercise. It should contain definitions for one or more Problem subclasses, and end with a call to `TPM2PPF_learntools.core.bind_exercises`.
 2. Create a notebook. It should begin with a code cell containing a few lines of boilerplate setup code. For each problem, there should probably be some markdown cell(s) describing the problem, then some starter code including some (possibly commented) calls to the check/hint/solution methods of the corresponding Problem(View) object.
 3. (Optional but recommended) Make a fork of the above notebook for testing.
 
@@ -14,16 +14,16 @@ To implement an exercise, you'll need to do the following:
 
 # Writing an exercise notebook
 
-Closing the loop between Kernels and updated learntools code is a fairly tedious process. My recommended workflow is to develop exercise notebooks locally then upload to kernels as a final step.
+Closing the loop between Kernels and updated TPM2PPF_learntools code is a fairly tedious process. My recommended workflow is to develop exercise notebooks locally then upload to kernels as a final step.
 
 ## Setup code
 
 Your notebook should begin with a code cell having some boilerplate setup code that looks like...
 
 ```python
-from learntools.core import binder
+from TPM2PPF_learntools.core import binder
 binder.bind(globals())
-from learntools.spam.spam_exercise import *
+from TPM2PPF_learntools.spam.spam_exercise import *
 ```
 
 This will import variables like `q1, q2, q3`... (you can use the `var_format` kwarg to `bind_exercises` to get variables of a different format e.g. `step_n`, `problem_n`, etc.). Each variable corresponds to a problem defined in your exercise module (technically it refers to an object of type `ProblemView`).
@@ -54,7 +54,7 @@ I recommend following that with one or two code cells with commented-out calls t
 
 # Writing an exercise module - defining Problems
 
-The majority of the work in writing an exercise module is defining a `learntools.core.Problem` subclass for each of your problems. Your `Problem` is essentially responsible for taking care of the three forms of interaction described above - checking code, hinting, and showing solutions.
+The majority of the work in writing an exercise module is defining a `TPM2PPF_learntools.core.Problem` subclass for each of your problems. Your `Problem` is essentially responsible for taking care of the three forms of interaction described above - checking code, hinting, and showing solutions.
 
 ## Hints
 
@@ -66,15 +66,15 @@ Hints are optional. If none is defined and the student tries to call `qn.hint()`
 
 ## Solutions
 
-All problems should define a `_solution` class attribute. If your solution is just in the form of code, you can create a `learntools.core.CodeSolution`, passing the source to its constructor. This will render it in a code block with Python syntax highlighting.
+All problems should define a `_solution` class attribute. If your solution is just in the form of code, you can create a `TPM2PPF_learntools.core.CodeSolution`, passing the source to its constructor. This will render it in a code block with Python syntax highlighting.
 
-If the solution is more than a couple lines, you might want to actually write it out in a separate module. If you do this, check out the `CodeSolution.load()` helper (see `learntools/python/ex7.py` for an example of it in use).
+If the solution is more than a couple lines, you might want to actually write it out in a separate module. If you do this, check out the `CodeSolution.load()` helper (see `TPM2PPF_learntools/python/ex7.py` for an example of it in use).
 
 Otherwise, `_solution` should be a markdown string.
 
 ## Checking
 
-This is the aspect of problem definition with the most potential for complication. There are a number of abstract `Problem` subclasses defined in `learntools/core/problem.py` (you'll rarely write a concrete `Problem` subclass that inherits directly from `Problem`). What distinguishes these abstract subclasses is mostly how they approach checking. Below is a rundown of those subclasses.
+This is the aspect of problem definition with the most potential for complication. There are a number of abstract `Problem` subclasses defined in `TPM2PPF_learntools/core/problem.py` (you'll rarely write a concrete `Problem` subclass that inherits directly from `Problem`). What distinguishes these abstract subclasses is mostly how they approach checking. Below is a rundown of those subclasses.
 
 ### No checking / code interaction? `ThoughtExperiment`
 
@@ -114,7 +114,7 @@ Any methods of your `Problem` not marked with a leading underscore (which are ta
 
 All `CodingProblem` subclasses define a `_var` or `_vars` to indicate the names of the variables (from the exercise notebook's namespace) which are of interest to this problem. The standard methods `check` and `check_whether_attempted` will receive the values of those variables as arguments when called. If any of the variables are undefined (or if a `_default_values` member is defined, and all current values match those) any call to `check()` will be aborted, and the user will get an Incorrect/NotAttempted message with a hopefully-useful message about which variables they still need to define.
 
-If you define a custom method on your problem which you'd like to also receive injected arguments when called, mark it with the `@injected` decorator, defined in `learntools.core.problem`.
+If you define a custom method on your problem which you'd like to also receive injected arguments when called, mark it with the `@injected` decorator, defined in `TPM2PPF_learntools.core.problem`.
 
 ## `bind_exercises`
 

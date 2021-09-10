@@ -97,7 +97,7 @@ class CodeSolution(Solution):
             # Strip trailing newlines (cause constructor adds them back...)
             lines = [line[:-1] for line in lines
                     # Hack
-                    if not line.startswith('from learntools.python.solns')
+                    if not line.startswith('from TPM2PPF_learntools.python.solns')
                     ]
             return cls(*lines)
 
