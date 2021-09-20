@@ -1,5 +1,5 @@
 from os import error
-from TPM2PPF_learntools.core import *
+from TPM2PPF_learntools.core import ThoughtExperiment, CodingProblem, MultipartProblem, bind_exercises
 from TPM2PPF_learntools.core.problem import injected
 from TPM2PPF_learntools.core.exceptions import Uncheckable
 import textwrap 
@@ -14,7 +14,7 @@ class FiniteVolumeDiscretisation(ThoughtExperiment):
     _hint = textwrap.dedent("""
     To answer this question, use the Latex langage for equations (you can look that the other equations in the notebooks by double-cliking on the markdown cells)
 
-    I expect in the question the diffinitions of $V_{e,i}$ (and other) as function of $d_x$ the cell size, and XXX
+    I expect in the question the diffinitions of $V_{e,i}$ (and other) as function of $d_x$ the cell size.
     """)  # TODO: continue the hint
 
     _solution = """You cannot have access to the solution !"""
@@ -78,7 +78,7 @@ class ExerciceThomasSolver(CodingProblem):
 
         x = thomas(a, b, c, d)
         error = np.sum(np.abs(x - xtheo))
-        assert np.allclose(x,xtheo), self._failure_message(error)
+        assert error < 1, self._failure_message(error)
         
 
 
@@ -176,7 +176,7 @@ class SolvingOnce(CodingProblem):
 
         error = np.sum(np.abs(V - V_theo))
 
-        assert np.allclose(V,V_theo), self._failure_message(error)
+        assert error < 1, self._failure_message(error)
         
 
 
@@ -211,6 +211,8 @@ class SolvingTwice(CodingProblem):
         N = 50   # Number of points that discretize the domain
         Lx = 1   # size of the domain in cm
 
+        assert len(V) == N, "The vector `V` Does not have a size of `N=50` !"
+
         a = np.ones(N)
         b = np.ones(N)
         c = np.ones(N)
@@ -224,8 +226,8 @@ class SolvingTwice(CodingProblem):
         a[-1] = 0
         b[-1] = -1
 
-        rho = 1e-10 * np.ones(N)  # charge density in C/m³
-        d = rho * dx / eps0
+        rho = 5e-10 * np.ones(N)  # charge density in C/m³
+        d = rho * dx**2 / eps0
         d[0] = -Ua
         d[-1] = -Uc
 
@@ -246,7 +248,7 @@ class SolvingTwice(CodingProblem):
 
         error = np.sum(np.abs(V - V_theo))
 
-        assert np.allclose(V,V_theo), self._failure_message(error)
+        assert error < 1, self._failure_message(error)
         
 
 
@@ -287,18 +289,17 @@ class ManufacturedSolution(CodingProblem):
         Uc = phi_ref[-1]   # Cathode potential in V
 
         a = np.ones(N)
-        b = np.ones(N)
+        b = -2*np.ones(N)
         c = np.ones(N)
         d = np.zeros(N)
 
-        b *=-2
         c[0] = 0
         b[0] = -1
         a[-1] = 0
         b[-1] = -1
 
         rho = rho_theo(x)  # charge density in C/m³
-        d = rho * dx / eps0
+        d = -rho * dx**2 / eps0
         d[0] = -Ua
         d[-1] = -Uc
 
@@ -319,7 +320,7 @@ class ManufacturedSolution(CodingProblem):
 
         error = np.sum(np.abs(V - phi_ref))
 
-        assert np.allclose(V,phi_ref), self._failure_message(error)
+        assert error < 1, self._failure_message(error)
         
 
 
