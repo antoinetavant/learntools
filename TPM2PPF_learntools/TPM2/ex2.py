@@ -1,6 +1,5 @@
 from os import error
-from TPM2PPF_learntools.core import *
-from TPM2PPF_learntools.core.problem import ThoughtExperiment, injected
+from TPM2PPF_learntools.core import ThoughtExperiment, CodingProblem, MultipartProblem, bind_exercises, CS
 from TPM2PPF_learntools.core.exceptions import Uncheckable
 import textwrap 
 
@@ -154,8 +153,10 @@ class precision1(ThoughtExperiment):
     _hint =  textwrap.dedent("""
     You need to compare the obtained results with a reference !
     
-    The reference could be an analytic solution (see the manufactured solution aproched) 
-    """)  # TODO: continue the hint
+    The reference could be an analytic solution, see for exemple the manufactured solution used during TP1.
+    If the solution is too simple (like $V=0$) then the results won't be meaningfull.
+
+    """)
 
     _solution = "No solutions are available"
 
