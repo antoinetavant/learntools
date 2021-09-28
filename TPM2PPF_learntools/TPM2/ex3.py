@@ -203,6 +203,8 @@ class SolvingOnce(CodingProblem):
         Ua = 45
         Uc = 10
 
+        xvect = np.linspace(0, 1, N)
+
         Vslot = 0.5 * (np.linspace(Uc, Ua, N) + np.linspace(Uc, Ua, N+2)[1:-1])
 
         Vtheo = np.zeros( (N,M) )
@@ -214,8 +216,8 @@ class SolvingOnce(CodingProblem):
         plt.title("Plasma potential \n with no charge density")
         plt.ylabel("Potential at $j=1$ [V]")
         plt.xlabel("Position x [cm]")
-        plt.plot(Vtheo[:, 1], label="The solution")
-        plt.plot(Vact[:, 1], label="Your answer `Vact`")
+        plt.plot(xvect, Vtheo[:, 1], ":", label="The solution")
+        plt.plot(xvect, Vact[:, 1], label="Your answer `Vact`")
         plt.legend()
         plt.tight_layout()
 
@@ -255,24 +257,27 @@ class SolvingTwice(CodingProblem):
         M = 50
         Ua = 45
         Uc = 10
+        rho = 1e-10
 
         x = np.linspace(0, 1, N)
 
         Vslot = 0.5 * (np.linspace(Uc, Ua, N) + np.linspace(Uc, Ua, N+2)[1:-1])
         Vslot = np.linspace(Uc, Ua, N)
 
-        Vslot +=  1e-10/8.85e-14/2 * ( x*(x - 1))  # TDO : check that this is the true Solution !!
+        Vslot +=  rho / 8.85e-14 / 2 * ( x*(x - 1)) 
 
         Vtheo = np.zeros( (N,M) )
         for j in range(M):
             Vtheo[:,j] = Vslot
 
+
+
         plt.figure(figsize=(5,3))
         plt.title("Plasma potential \n with uniform charge density")
         plt.ylabel("Potential at $j=1$ [V]")
         plt.xlabel("Position x [cm]")
-        plt.plot(Vtheo[:, 1], label="The solution")
-        plt.plot(Vact[:, 1], label="Your answer `Vact`")
+        plt.plot(x, Vtheo[:, 1], ":", label="The solution")
+        plt.plot(x, Vact[:, 1], label="Your answer `Vact`")
         plt.legend()
         plt.tight_layout()
 
