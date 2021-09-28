@@ -1,5 +1,5 @@
 from os import error
-from TPM2PPF_learntools.core import *
+from TPM2PPF_learntools.core import ThoughtExperiment, CodingProblem, bind_exercises, MultipartProblem
 from TPM2PPF_learntools.core.problem import injected
 from TPM2PPF_learntools.core.exceptions import Uncheckable
 import textwrap 
@@ -168,25 +168,26 @@ class ExerciceSorSolver(CodingProblem):
         ).format(error_value)
 
 
-def SOR_solution(w=1):
-    """arguments: w between 0 and 2
-    Return x a vector of the same size of a"""
+
+# def SOR_solution(w=1):
+#     """arguments: w between 0 and 2
+#     Return x a vector of the same size of a"""
     
-    "Verifying that the inputs are correct"
-    assert w > 0 and w < 2 , "the argument is not between 0 and 2"
+#     "Verifying that the inputs are correct"
+#     assert w > 0 and w < 2 , "the argument is not between 0 and 2"
     
-    for i in range(N):
-        for j in range(M):
+#     for i in range(N):
+#         for j in range(M):
             
-            Vact[i, j] = (1-w)*Vact[i, j] + w * (Vo(i,j)*V(i-1, j) +
-            Ve(i,j)*V(i+1, j) +
-            Vs(i,j)*V(i, j-1) +
-            Vn(i,j)*V(i, j+1)
-            - rho(i,j)) / Vc(i,j)
+#             Vact[i, j] = (1-w)*Vact[i, j] + w * (Vo(i,j)*V(i-1, j) +
+#             Ve(i,j)*V(i+1, j) +
+#             Vs(i,j)*V(i, j-1) +
+#             Vn(i,j)*V(i, j+1)
+#             - rho(i,j)) / Vc(i,j)
             
-    # Write your code here
+#     # Write your code here
     
-    return Vact 
+#     return Vact 
     
 
 class SolvingOnce(CodingProblem):
