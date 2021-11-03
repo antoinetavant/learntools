@@ -122,10 +122,8 @@ class ExerciceSorSolver(CodingProblem):
         nxdg = 0 # Nx/10      # dielectric anode side
         nxdd = 0 # Nx/10      # dielectric cathode side       
 
-        from tqdm.auto import tqdm
 
-        for index in tqdm(range(1000)):
-            Vact = SOR(w=1.5)
+        Vact = SOR(w=1.5)
 
         Vslot = 0.5 * (np.linspace(Uc, Ua, N) + np.linspace(Uc, Ua, N+2)[1:-1])
 
@@ -183,7 +181,7 @@ class ExerciceSorSolver(CodingProblem):
 #             Ve(i,j)*V(i+1, j) +
 #             Vs(i,j)*V(i, j-1) +
 #             Vn(i,j)*V(i, j+1)
-#             - rho(i,j)) / Vc(i,j)
+#             + rho(i,j)) / Vc(i,j)
             
 #     # Write your code here
     
@@ -265,7 +263,7 @@ class SolvingTwice(CodingProblem):
         Vslot = 0.5 * (np.linspace(Uc, Ua, N) + np.linspace(Uc, Ua, N+2)[1:-1])
         Vslot = np.linspace(Uc, Ua, N)
 
-        Vslot +=  rho / 8.85e-14 / 2 * ( x*(x - 1)) 
+        Vslot += - rho / 8.85e-14 / 2 * ( x*(x - 1)) 
 
         Vtheo = np.zeros( (N,M) )
         for j in range(M):

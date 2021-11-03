@@ -143,11 +143,15 @@ class SolvingOnce(CodingProblem):
         Uc = 5   # Cathode potential in V
         N = 50   # Number of points that discretize the domain
         Lx = 1   # size of the domain in cm
-
+        x = np.linspace(0, 1, N)
+        dx = x[1] - x[0]
         a = np.ones(N)
         b = np.ones(N)
         c = np.ones(N)
         d = np.zeros(N)
+        a /= dx**2
+        b /= dx**2
+        c /= dx**2
 
         b *=-2
         c[0] = 0
@@ -161,8 +165,7 @@ class SolvingOnce(CodingProblem):
         d[-1] = -Uc
 
         V_theo = thomas_solution(a, b, c, d)
-        x = np.linspace(0, 1, N)
-        dx = x[1] - x[0]
+ 
 
         plt.figure(figsize=(5,3))
         plt.title("Plasma potential \n with no charge density")
@@ -213,12 +216,14 @@ class SolvingTwice(CodingProblem):
 
         assert len(V) == N, "The vector `V` Does not have a size of `N=50` !"
 
+        x = np.linspace(0, 1, N)
+        dx = x[1] - x[0]
         a = np.ones(N)
         b = np.ones(N)
         c = np.ones(N)
         d = np.zeros(N)
-        x = np.linspace(0, Lx, N)
-        dx = x[1] - x[0]
+
+
 
         b *=-2
         c[0] = 0
@@ -227,7 +232,7 @@ class SolvingTwice(CodingProblem):
         b[-1] = -1
 
         rho = 5e-10 * np.ones(N)  # charge density in C/m³
-        d = rho * dx**2 / eps0
+        d = - rho * dx**2 / eps0
         d[0] = -Ua
         d[-1] = -Uc
 
@@ -299,7 +304,7 @@ class ManufacturedSolution(CodingProblem):
         b[-1] = -1
 
         rho = rho_theo(x)  # charge density in C/m³
-        d = -rho * dx**2 / eps0
+        d = - rho * dx**2 / eps0
         d[0] = -Ua
         d[-1] = -Uc
 
